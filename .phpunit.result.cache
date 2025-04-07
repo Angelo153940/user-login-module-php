@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":{"UserLoginService\\Tests\\Services\\UserLoginServiceTest::userIsLoggedIn":0.035,"UserLoginService\\Tests\\Application\\UserLoginServiceTest::userIsLoggedIn":0.021}}
+{"version":1,"defects":[],"times":{"UserLoginService\\Tests\\Services\\UserLoginServiceTest::userIsLoggedIn":0.035,"UserLoginService\\Tests\\Application\\UserLoginServiceTest::userIsLoggedIn":0.436,"UserLoginService\\Tests\\Application\\UserLoginServiceTest::userAlreadyLoggedIn":0.012,"UserLoginService\\Tests\\Application\\UserLoginServiceTest::getNumberOfActiveSessions":0.1}}

@@ -2,13 +2,39 @@
 
 namespace UserLoginService\Application;
 
+use Exception;
+use UserLoginService\Domain\User;
+use UserLoginService\Infrastructure\FacebookSessionManager;
+
 class UserLoginService
 {
+    private FacebookSessionManager $facebookSessionManager;
     private array $loggedUsers = [];
 
-    public function manualLogin(): string
+    public function __construct(FacebookSessionManager $facebookSessionManager)
     {
-        return "user logged";
+        $this->facebookSessionManager = $facebookSessionManager;
     }
 
+    /**
+     * @throws Exception
+     */
+    public function manualLogin(User $user): void
+    {
+        if (in_array($user->getUsername(), $this->loggedUsers)) {
+            throw new Exception('User already logged in');
+        }
+
+        $this->loggedUsers[] = $user->getUsername();
+    }
+
+    public function getUsersLogged(): array
+    {
+        return $this->loggedUsers;
+    }
+
+    public function getExternalSessions(): int
+    {
+        return $this->facebookSessionManager->getSessions();
+    }
 }
