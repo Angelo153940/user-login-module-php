@@ -20,8 +20,7 @@ final class UserLoginServiceTest extends TestCase
     public function userIsLoggedIn(): void
     {
         $user = new User('Angelo');
-        $facebookSessionManager = Mockery::mock(FacebookSessionManager::class);
-        $userLoginService = new UserLoginService($facebookSessionManager);
+        $userLoginService = new UserLoginService(new FacebookSessionManager());
 
         $userLoginService->manualLogin($user);
 
@@ -35,8 +34,7 @@ final class UserLoginServiceTest extends TestCase
     public function userAlreadyLoggedIn(): void
     {
         $user = new User('Angelo');
-        $facebookSessionManager = Mockery::mock(FacebookSessionManager::class);
-        $userLoginService = new UserLoginService($facebookSessionManager);
+        $userLoginService = new UserLoginService(new FacebookSessionManager());
 
         $this->expectExceptionMessage('User already logged in');
         $userLoginService->manualLogin($user);
@@ -49,7 +47,7 @@ final class UserLoginServiceTest extends TestCase
     public function getNumberOfActiveSessions(): void
     {
         $facebookSessionManager = Mockery::mock(FacebookSessionManager::class);
-        $facebookSessionManager->shouldReceive('getSessions')->once()->andReturn(4);
+        $facebookSessionManager->allows()->getSessions()->andReturn(4);
 
         $userLoginService = new UserLoginService($facebookSessionManager);
 
